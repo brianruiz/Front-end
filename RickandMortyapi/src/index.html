@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rick and Morty API</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <header>
+        <nav class="menu">
+            <a class="icon" href="file:///C:/Users/brian/Desktop/universidad/Avalero/RickandMortyapi/src/index.html"></a>
+                <ul>
+                <a class="docs" href="#">Docs</a>
+                <a class ="about" href="#">About</a>
+                <a class ="help" href="#">Help us</a>
+                </ul> 
+        </nav>
+       <div id="search">
+           <input type="text" id="busqueda">
+           <button id="botonbuscar">Search</button>
+       </div> 
+    </header>
+    <main class="main">
+        <section class= "wraper" >
+            <h1 class ="titulo">The Rick and Morty API</h2>
+        </section>
+        <section class="tabla">
+            <div class ="articulos" id="caracteress">
+                
+                    
+            </div>
+        </section>
+    </main>
+    <footer>
+        <ul>
+            <li><a title="characters" href="">
+                <span class="white">Characters : 826</span></a>
+            </li>
+            <li><a title="characters" href="">
+                <span class="white">Locations : 126</span></a>
+            </li>
+            <li><a title="characters" href="">
+                <span class="white">Episodes : 51</span></a>
+            </li>
+        </ul>
+        <a class= "navs" href="">
+            <span class="end">Server Status</span>
+            <span class="endicon"></span>
+        </a>
+    </footer>
+    <script>
+        const nombre = document.getElementById("busqueda");
+        const boton =  document.getElementById("botonbuscar");
+
+        const search =async (value) => {
+            const data = await(await fetch(`https://rickandmortyapi.com/api/character/?name=${value}`)).json();
+                var html="";
+                for(var i=0; i<data.results.length; i++){
+                html += "<article class='caracter'>"
+                    html += "<div class='imagencaracter'><img src='"+data.results[i].image + "'/></div>"
+                    html +=  "<div class='caractercard'>" 
+                        html += "<div class='seccion'>"
+                            html += "Name: "+data.results[i].name +"<br>"
+                            html +=" <span class='tipo'>"
+                                html+="<span class='icontype'></span>"
+                                html += "Status: "+data.results[i].status +"<br>"
+                            html += "</span>"
+                        html += "</div>" 
+                        html +="<div class='seccion'>"
+                            html +=" <span class='tipo'>"
+                                html += "Species: "+data.results[i].species +"<br>"
+                            html +="</span>"
+                        html +="</div>"
+                        html +=  "<div class='seccion'> " 
+                            html +=" <span class='tipo'>"      
+                            html += "Gender: "+data.results[i].gender +"<br>"
+                            html +="</span>"
+                        html +="</div>"
+                    html +="</div>"    
+                html +="</article>"        
+                                   }
+                document.getElementById("caracteress").innerHTML=html;                   
+        }
+
+        boton.addEventListener("click",(event)=>{
+            event.preventDefault();
+            if(nombre.value){
+                search(nombre.value);
+                nombre.value="";
+            }
+        })
+    </script>
+    
+</body>
+</html>
